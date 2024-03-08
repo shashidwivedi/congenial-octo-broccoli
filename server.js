@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 3001;
 
 // Server Side Fetching
 // write some method that calls that API every five minutes and cache the results
+// but we will do a basically no-code way using suspense (cool stuff)
 
 const html = fs
   .readFileSync(path.resolve(__dirname, "./dist/client/index.html"))
