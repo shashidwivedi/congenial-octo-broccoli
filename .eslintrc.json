@@ -5,20 +5,14 @@
     "plugin:react/recommended",
     "plugin:jsx-a11y/recommended",
     "plugin:react-hooks/recommended",
-    "plugin:@typescript-eslint/recommended",
-    // only add below line at the end of your typescript migration, as it's kind of strict
-    "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "prettier"
   ],
   "rules": {
     "react/prop-types": 0,
-    "react/react-in-jsx-scope": 0,
-    "@typescript-eslint/no-empty-function": 0
+    "react/react-in-jsx-scope": 0
   },
-  "plugins": ["react", "import", "jsx-a11y", "@typescript-eslint"],
-  "parser": "@typescript-eslint/parser",
+  "plugins": ["react", "import", "jsx-a11y"],
   "parserOptions": {
-    "project": "./tsconfig.json",
     "ecmaVersion": 2022,
     "sourceType": "module",
     "ecmaFeatures": {
@@ -34,12 +28,9 @@
     "react": {
       "version": "detect"
     },
-    "import/parsers": {
-      "@typescript-eslint/parser": [".ts", ".tsx"]
-    },
     "import/resolver": {
-      "typescript": {
-        "alwaysTryTypes": true
+      "node": {
+        "extensions": [".js", ".jsx"]
       }
     }
   }
