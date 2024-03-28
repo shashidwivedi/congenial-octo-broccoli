@@ -1,24 +1,25 @@
 import { useState, useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useNavigate } from "react-router-dom";
+import AdoptedPetContext from "./AdoptedPetContext";
+import Modal from "./Modal";
 import fetchPet from "./fetchPet";
 import Carousel from "./Carousel";
 import ErrorBoundary from "./ErrorBoundary";
-import Modal from "./Modal";
-import AdoptedPetContext from "./AdoptedPetContext";
 
 const Details = () => {
+  const { id } = useParams();
+
+  if (!id) {
+    throw new Error("No id given to details");
+  }
+
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
-
-  // eslint-disable-next-line no-unused-vars
-  const [_, setAdoptedPet] = useContext(AdoptedPetContext);
-  const { id } = useParams();
   const results = useQuery(["details", id], fetchPet);
-
-  if (results.isError) {
-    return <h2>ohno</h2>;
-  }
+  console.log("your results: ", results);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, setAdoptedPet] = useContext(AdoptedPetContext);
 
   if (results.isLoading) {
     return (
@@ -28,7 +29,11 @@ const Details = () => {
     );
   }
 
-  const pet = results.data.pets[0];
+  const pet = results?.data?.pets[0];
+
+  if (!pet) {
+    throw new Error("no pet lol");
+  }
 
   return (
     <div className="details">
@@ -63,10 +68,10 @@ const Details = () => {
   );
 };
 
-function DetailsErrorBoundary(props) {
+function DetailsErrorBoundary() {
   return (
     <ErrorBoundary>
-      <Details {...[props]} />
+      <Details />
     </ErrorBoundary>
   );
 }

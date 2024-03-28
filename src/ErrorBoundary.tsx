@@ -1,7 +1,7 @@
-import { Component } from "react";
+import { Component, ErrorInfo, ReactElement } from "react";
 import { Link } from "react-router-dom";
 
-class ErrorBoundary extends Component {
+class ErrorBoundary extends Component<{ children: ReactElement }> {
   state = { hasError: false };
 
   static getDerivedStateFromError() {
@@ -10,7 +10,7 @@ class ErrorBoundary extends Component {
     };
   }
 
-  componentDidCatch(error, info) {
+  componentDidCatch(error: Error, info: ErrorInfo) {
     // typically we would log this to something like TrackJS or NewRelic
     console.error("ErrorBoundary Component caught an error", error, info);
   }
